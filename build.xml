@@ -1,0 +1,72 @@
+<project name="BadPuppy" default="package">
+
+	<tstamp/>
+	<property environment="env"/>
+	<property name="env.BUILD_NUMBER" value="local"/>
+	<property file="build.properties"/>
+	<property name="version.number" value="${BadPuppy.version}.${env.BUILD_NUMBER}" />
+	<property name="project.zip" value="${ant.project.name}_${version.number}.zip"/>
+
+	<target name="clean" description="Cleans old builds">
+		<delete dir="build" verbose="true"/>
+		<delete dir="dest" verbose="true"/>
+	</target>
+
+	<target name="package" description="package the code. create ${project.zip}">
+		<mkdir	dir="build/${ant.project.name}"/>
+		<mkdir	dir="dest"/>
+		<copy 	todir="build/${ant.project.name}">
+			<fileset dir="src">
+				<include name="*.lua"/>
+				<include name="*.toc"/>
+				<include name="*.xml"/>
+				<include name="Readme.txt"/>
+			</fileset>
+			<filterset>
+				<filter token="VERSION" value="${version.number}"/>
+			</filterset>
+		</copy>
+		<zip 	destfile="dest/${project.zip}"
+				basedir="build"
+				includes="${ant.project.name}/**"/>
+		<delete dir="build" verbose="true"/>
+		<checksum file="dest/${project.zip}"
+				  property="zip.md5" />
+		<echo message="${zip.md5}" />
+	</target>
+
+	<target name="test" description="copy files directly to WoW for testing">
+		<property name="interface.dir" value="/Applications/World of Warcraft/Interface/AddOns/"/>
+		<property name="test.dir" value="${interface.dir}/${ant.project.name}"/>
+		
+		<mkdir 	dir="${test.dir}"/>
+		<copy 	todir="${test.dir}" verbose="true">
+			<fileset dir="src">
+				<include name="*.lua"/>
+				<include name="*.toc"/>
+				<include name="*.xml"/>
+				<include name="Readme.txt"/>
+			</fileset>
+			<filterset>
+				<filter token="VERSION" value="${version.number}"/>
+			</filterset>
+		</copy>
+	</target>
+	
+	<target name="deploy" depends="deploy.check" description="deploys the file" if="deploy.run">
+		<copy todir="${deploy.dir}">
+			<fileset dir="dest">
+				<include name="*.zip"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="deploy.check">
+		<condition property="deploy.run">
+			<and>
+				<available file="${deploy.from}" type="dir"/>
+			</and>
+		</condition>
+	</target>
+
+</project>

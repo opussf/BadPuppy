@@ -1,0 +1,52 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
+	<Script file="BadPuppy.lua"/>
+	<!-- Version 1.4 -->
+	<Frame name="BadPuppyFrame" frameStrata="BACKGROUND" toplevel="false" enableMouse="false" movable="false" parent="UIParent">
+		<Size>
+			<RelDimension x="1" y="0.05"/>
+		</Size>
+		<Anchors>
+			<Anchor point="TOP">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Frames>
+			<StatusBar name="BadPuppy_ChangeTimeBar" inherits="TextStatusBar">
+				<Size>
+					<RelDimension x="1" y="0.05"/>
+				</Size>
+				<Anchors>
+					<Anchor point="TOP" relativeTo="BadPuppyFrame" relativePoint="TOP">
+						<Offset>
+							<AbsDimension x="0" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad> <!-- artwork -->
+						BadPuppy_ChangeTimeBar:SetFrameLevel( 0 );
+						BadPuppy_ChangeTimeBar:SetAlpha(1.0)
+					</OnLoad>
+				</Scripts>
+				<BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+				<BarColor r="0.5" g="0" b="0"/>
+			</StatusBar>
+		</Frames>
+
+		<Scripts>
+			<OnLoad>
+				BadPuppy.OnLoad();
+			</OnLoad>
+			<OnEvent>
+				BadPuppy[event](self, ...);
+			</OnEvent>
+			<OnUpdate>
+				BadPuppy.OnUpdate();
+			</OnUpdate>
+		</Scripts>
+	</Frame>
+</Ui>
+

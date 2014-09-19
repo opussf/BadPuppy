@@ -1,0 +1,12 @@
+## Interface: 50400
+## Title: BadPuppy
+## Notes: Auto Transforms Worgens to human form
+## Author: sistersally of hyjal
+## Version: @VERSION@
+## Description: Auto Transforms a Worgen to human form
+## SavedVariables: 
+## SavedVariablesPerCharacter:
+
+BadPuppy.lua
+BadPuppy.xml
+
