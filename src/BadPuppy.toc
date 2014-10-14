@@ -1,6 +1,6 @@
-## Interface: 50400
+## Interface: @INTERFACE@
 ## Title: BadPuppy
-## Notes: Auto Transforms Worgens to human form
+## Notes: Auto Transforms Worgens to human form @VERSION@
 ## Author: sistersally of hyjal
 ## Version: @VERSION@
 ## Description: Auto Transforms a Worgen to human form
